@@ -1,7 +1,6 @@
 def init_tools(mcp):
     @mcp.tool(
-        name="TestConnection",
-        description="Test connection with archicad"
+        description="Test connection with RIKCAD"
     )
     def test_connection():
         """
@@ -9,6 +8,9 @@ def init_tools(mcp):
         """
         from archicad import ACConnection
         conn = ACConnection.connect()
+        if conn is None:
+            return "エラー: RIKCADに接続できません"
+
         acc = conn.commands
         act = conn.types
         

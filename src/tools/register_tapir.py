@@ -19,10 +19,13 @@ def init_tapir(mcp):
             description=description,
             tags=[tag],
         )
-        def dynamic_command(input, _name=name, _input_schema=input_schema_str):
+        def dynamic_command(input=None, _name=name, _input_schema=input_schema_str):
             from archicad import ACConnection
 
             conn = ACConnection.connect()
+            if conn is None:
+                return "エラー: RIKCADに接続できません。アプリケーションが起動していること、およびアドオンが有効になっていることを確認してください。"
+
             acc = conn.commands
             act = conn.types
 
